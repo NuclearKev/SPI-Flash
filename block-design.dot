@@ -1,0 +1,10 @@
+strict digraph G {
+	Computer  [shape=box]
+	ZYBO	  [shape=box]
+	SPI_Flash [shape=box, label="PMOD SF"]
+	Router    [shape=box]
+	Computer -> ZYBO [arrowhead=none, label="USB"]
+	Computer -> Router [dir=both, label="Wireless", style="dotted"]
+	ZYBO -> SPI_Flash [dir=both, label="SPI"]
+	ZYBO -> Router [dir=both, label="Ethernet"]
+}

@@ -1,0 +1,21 @@
+* Order of Business
+** TODO Design Hardware
+** TODO Communicate with PMOD SF [0/5]
+   + [ ] Receive identity code
+   + [ ] Read status register
+   + [ ] Read data [0/1]
+     + [ ] Erase flash
+   + [ ] Write to flash (single byte)
+   + [ ] Write to flash (multi-byte)
+
+** TODO Get Ethernet Communication [0/3]
+   + [ ] Learn how Ethernet works on ZYBO
+   + [ ] Modify Ethernet program to what I need it to [0/3]
+     + [ ] Read flash
+     + [ ] Write flash
+     + [ ] Erase flash
+
+** TODO Write C# Program [0/3]
+   + [ ] Make modifications to the Ethernet C# Program from 311
+   + [ ] Calculate some data to send
+   + [ ] Graph what you get back
