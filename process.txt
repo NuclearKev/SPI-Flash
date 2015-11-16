@@ -1,0 +1,153 @@
+This simple text file will contain my process for this project.
+
+How to understand this text file:
+    ====: Means a new date started
+    ----: Means a new section
+    ....: Just another separator lesser to -----
+
+================================================================================
+
+10/14/15:
+
+I began building the hardware for the SPI Flash PMOD.
+It will consist of just the ZYNQ processor block with the SPI0 pins.
+
+That was easy, the hardware built fine.
+
+--------------------------------------------------------------------------------
+
+I began designing the software to control this guy. I used the SPI crap from
+the WaveformGen Lab (lab 5). (mainly just the initialization functions and basic
+setup)
+
+The first thing I tried to do was read the status register. However, it didn't
+work... Why?
+	-It didn't work because I had the Slave Select setup in a strange way.
+	 I had the SS pin from the ZYNQ block going to the SS of the chip. This
+	 is NOT the best way to do this. I instead added a GPIO that was tied to
+	 the SS of the chip. This makes it easy to manually select when the SS
+	 is low or high.
+
+One I figure that part out I tried to read the status register again but didn't
+get anything that seemed legit. I then decided to try and read the
+identification register. This didn't work either...
+	-This didn't work because you need to activate Deep Power-Down mode
+	 BEFORE being able to read that register. After enabling this mode I
+	 read the identification register and got a value of 0x20 (which is what
+	 I was supposed to get)
+
+COMMUNICATION!!!!!
+
+The next thing I needed to do was read/write the status register. So I tried
+this and it just so happens it worked! The way I did this was by writing to the
+write enable bit in the status register (bit 1) that way I could see if both my
+write enable command AND my read register command worked.
+
+--------------------------------------------------------------------------------
+
+I suppose the next order of business is to get reading memory to work. This is
+where the trouble begins...
+
+This took me a while to figure out but in the process of this I found out a lot
+of things about this device.
+
+BULK ERASE: Clears entire device memory BUT wipes them to 1's
+
+SECTOR ERASE: Clears entire sector memory BUT wipes them to 1's (command 0xD8)
+
+READ BYTES: You must send it the command (0x03) then 3 address bytes*. Note that
+you will read 255 (0xFF) if you read an "empty" byte.
+
+PAGE PROGRAM: This is the write to memory command. It requires you to clear the
+sector** you want to write to and enable writing, THEN you can send it the
+command (0x02), 3 address bytes*, then all the data bytes you wanna write.
+
+W#/HOLD#: The PMOD doesn't have these pins so you don't need to worry about
+them. However, W# is the write protect (explain later) and HOLD# is for holding,
+I don't really know what that is...
+
+Status Register: This register contains 4 important pieces of information for
+the user.
+    -SRWD: This works in conjunction with the W# signal (so in our case we
+     don't really care). Setting this bit high while the W# pin is low will
+     cause the device to go into Hardware Protection Mode (HPM). This doesn't
+     let you use the PAGE PROGRAM, BULK ERASE, or SECTOR ERASE commands. So
+     basically, don't set this high. Any other configuration of SRWD and W# will
+     put the device in Software Protection Mode (SPM), which is what we want.
+    -BP0..BP2: These are Block Protect Bits and setting them will allow you to
+     protect certain sectors from being modified. (must be in SPM to set these)
+    -WEL: This is the enable write bit. It goes high with the WRITE ENABLE
+     command. It will go low after a writable command is used.
+    -WIP: Write in Progress....
+
+*The addresses are in a big list in the documentation. However, I am unsure as
+ to how to pick them for sure. I have been using 0x00000F just because I saw
+ it being used in some VHDL code on Digilent's website. I believe you can just
+ put any combination of crap in there and it'll work.
+
+**I am unsure how the sector part works at this point. More to come later.
+
+
+................................................................................
+
+After learning all that crap I eventually got reading AND writing of the memory
+working. It only took me bout 4 hours total to get it to work. I can now write a
+single byte to the memory.
+
+*******ALSO, IF YOU WANT TO RUN MORE THAN 1 COMMAND PER UPLOAD, YOU MUST WAIT
+SOME AMOUNT OF TIME I DON'T KNOW YET UNTIL YOU TRY TO READ/WRITE ANYTHING EXCEPT
+THE STATUS REGISTER*********
+
+================================================================================
+
+10/15/15:
+
+I wrote some functions to do ERASE SECTOR, READ STATUS REGISTER, and ENABLE
+WRITE.
+
+I then added a function for the page program command. You can write as much data
+as you want using it.
+
+I got multi-byte writing/reading figured out.
+
+--------------------------------------------------------------------------------
+
+I added a switches GPIO that will be used to set the device in READ or WRITE
+mode.
+
+I added a nice while loop so that you can read and write on the same upload.
+If switch 0 is low, it is in read mode. If it is high, it is in write mode.
+You then press button one to either read or write.
+
+I also added a for loop that would put some data in a temporary array and ship
+100 bytes to the flash. IT WORKS!
+
+I also added a function for reading from the chip. Pretty great stuff.
+
+================================================================================
+
+11/12/15:
+
+I created the library files that I will be using in the actual project.
+
+Since I will need to use the ethernet ZYBO project to communicate with C#, it's
+in my best interest to do this.
+
+================================================================================
+
+11/13/15:
+
+I finished the library, I can now start working on the C# part.
+
+Before I do that, I must configure the ethernet ZYBO project to do what I need
+it to.
+
+================================================================================
+
+
+Things to do:
+       C# this bitch
+       	  -C# must be able to control when you read or write.
+	   The read data is then shipped to C# and graphed.
+	   All done through Ethernet.
+	  
