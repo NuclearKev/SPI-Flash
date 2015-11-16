@@ -1,4 +1,5 @@
 * Order of Business
+<2015-11-20 Fri>
 ** TODO Communicate with PMOD SF [1/6]
    + [X] Design hardware (Zynq w/ SPI enabled)
    + [ ] Receive identity code
@@ -8,6 +9,7 @@
    + [ ] Write to flash (single byte)
    + [ ] Write to flash (multi-byte)
 
+<2015-11-23 Mon>
 ** TODO Get Ethernet Communication [0/3]
    + [ ] Learn how Ethernet works on ZYBO
    + [ ] Modify Ethernet program to what I need it to [0/3]
@@ -15,6 +17,7 @@
      + [ ] Write flash
      + [ ] Erase flash
 
+<2015-12-04 Fri>
 ** TODO Write C# Program [0/3]
    + [ ] Make modifications to the Ethernet C# Program from 311
    + [ ] Calculate some data to send
