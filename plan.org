@@ -1,6 +1,6 @@
 * Order of Business
-** TODO Design Hardware
-** TODO Communicate with PMOD SF [0/5]
+** TODO Communicate with PMOD SF [1/6]
+   + [X] Design hardware (Zynq w/ SPI enable)
    + [ ] Receive identity code
    + [ ] Read status register
    + [ ] Read data [0/1]
