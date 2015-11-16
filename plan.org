@@ -1,12 +1,12 @@
 * Order of Business
-** TODO Communicate with PMOD SF [1/6] <2015-11-20 Fri>
+** DONE Communicate with PMOD SF [6/6] <2015-11-20 Fri>
    + [X] Design hardware (Zynq w/ SPI enabled)
-   + [ ] Receive identity code
-   + [ ] Read status register
-   + [ ] Read data [0/1]
-     + [ ] Erase flash
-   + [ ] Write to flash (single byte)
-   + [ ] Write to flash (multi-byte)
+   + [X] Receive identity code
+   + [X] Read status register
+   + [X] Read data [1/1]
+     + [X] Erase flash
+   + [X] Write to flash (single byte)
+   + [X] Write to flash (multi-byte)
 
 ** TODO Get Ethernet Communication [0/3] <2015-11-23 Mon>
    + [ ] Learn how Ethernet works on ZYBO
