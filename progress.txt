@@ -144,10 +144,13 @@ it to.
 
 ================================================================================
 
+11/16/15:
 
-Things to do:
-       C# this bitch
-       	  -C# must be able to control when you read or write.
-	   The read data is then shipped to C# and graphed.
-	   All done through Ethernet.
-	  
+I started on the Ethernet ZYBO part. I created the new hardware design; including
+but not limited to, the Zynq block and a gpio for slave select control.
+
+However, I now need to mess around with the program to enable it to do what it
+needs to. This is the hard part because the Ethernet code is terrible and very
+fragile. Wish me luck.
+
+================================================================================
