@@ -81,6 +81,10 @@ void pageProgram(XGpio *SSptr, XSpiPs *SPIptr, uint32_t address, uint8_t data[],
 
 }
 
+/* This functions reads "bytes" amount of bytes from the flash. In order to 
+return an array correctly, I needed to use malloc function to allocate space 
+for it. The last for loop is there because the first 4 bytes of data in the 
+received array contain zeros always, we don't need them so I remove them. */
 uint8_t *readData(XGpio *SSptr, XSpiPs *SPIptr, uint32_t startAddress, uint32_t bytes){
 
   uint32_t j = bytes + 4; //number of bytes sent AND received
