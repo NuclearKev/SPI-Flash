@@ -1,4 +1,5 @@
 strict digraph G {
+        label="PMOD SF is connected to PMOD JE"
 	Computer  [shape=box]
 	ZYBO	  [shape=box]
 	SPI_Flash [shape=box, label="PMOD SF"]
