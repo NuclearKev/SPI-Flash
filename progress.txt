@@ -154,3 +154,31 @@ needs to. This is the hard part because the Ethernet code is terrible and very
 fragile. Wish me luck.
 
 ================================================================================
+
+11/18/15:
+
+I started to try and understand the Ethernet program. This is shit. Especially
+Calvert's code... It's terrible... Like always. Anyways, I fought with Vivado
+and the SDK for like 3 hours until I finally got the original program to work.
+After this I tried to modify it but it just got worse so I ended up starting
+fresh.
+
+................................................................................
+
+I redid the hardware and copied the shitty code over to the new SDK and it worked.
+So far so good.
+
+Then I realized that this is much harder than I thought. Since the main.c file
+is not the same file as the echo.c file, I can't just initialize the Slave Select
+GPIO and the SPI in main and use the stuff in echo. This makes life difficult...
+
+--------------------------------------------------------------------------------
+
+After I got home from school I decided that I would come up with a way to do this!
+I mean, I'm Kevin Bloom dammit! I can do this! That being said, I spent all night
+messing with it and I think I got it. However, since I don't ruin my computer
+with terrible software like Visual Studios or Windows, I cannot test it until
+tomorrow. I fixed all the errors and the things I did make sense. Lets hope it
+works!
+
+================================================================================
