@@ -12,6 +12,7 @@ the following:
 * Read Sector/Page
 * Erase Sector/Page
 * Write Page
+
 To demonstrate the functionality of this project, I will be sending some data
 using Ethernet to the ZYBO and have it be stored on the flash. C# will generate
 said data (either a sine wave or some random data). Once the data is written, I
