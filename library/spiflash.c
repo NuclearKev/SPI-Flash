@@ -11,6 +11,7 @@
 void enableWrite(XGpio *SSptr, XSpiPs *SPIptr){
 
   uint8_t SendBuffer[1] = {0x06}; //write enable command
+  
   XGpio_DiscreteWrite(SSptr, 1, 0); //drop slave select
   XSpiPs_PolledTransfer(SPIptr, SendBuffer, NULL, 1);
   XGpio_DiscreteWrite(SSptr, 1, 1); //raise slave select
@@ -22,6 +23,7 @@ uint8_t readStatusRegister(XGpio *SSptr, XSpiPs *SPIptr){
 
   uint8_t SendBuffer[1] = {0x05}; //read Status Register command
   uint8_t ReceiveBuffer[2];
+  
   XGpio_DiscreteWrite(SSptr, 1, 0);
   XSpiPs_PolledTransfer(SPIptr, SendBuffer, ReceiveBuffer, 2);
   XGpio_DiscreteWrite(SSptr, 1, 1);
@@ -45,6 +47,7 @@ void eraseSector(XGpio *SSptr, XSpiPs *SPIptr, uint32_t startAddress){
   SendBuffer[1] = startAddress >> 16; //grabs most significant byte
   SendBuffer[2] = startAddress >> 8;  //grabs middle byte
   SendBuffer[3] = startAddress;       //grabs least significant byte
+  
   XGpio_DiscreteWrite(SSptr, 1, 0);
   XSpiPs_PolledTransfer(SPIptr, SendBuffer, NULL, 4);
   XGpio_DiscreteWrite(SSptr, 1, 1);
@@ -87,7 +90,7 @@ for it. The last for loop is there because the first 4 bytes of data in the
 received array contain zeros always, we don't need them so I remove them. */
 uint8_t *readData(XGpio *SSptr, XSpiPs *SPIptr, uint32_t startAddress, uint32_t bytes){
 
-  uint32_t j = bytes + 4; //number of bytes sent AND received
+  uint32_t i, j = bytes + 4; //number of bytes sent AND received
   uint8_t SendBuffer[4];
   uint8_t tempReceiveBuffer[j];
   uint8_t *ReceiveBuffer = (uint8_t*)malloc(sizeof(uint8_t)*bytes); //allocates space for the array
@@ -102,7 +105,6 @@ uint8_t *readData(XGpio *SSptr, XSpiPs *SPIptr, uint32_t startAddress, uint32_t 
   XGpio_DiscreteWrite(SSptr, 1, 1);
 
   /* The top 4 elements in tempReceiveBuffer are always zeros, thus, I remove them */
-  uint32_t i;
   for(i = 4; i < j; i++){
     ReceiveBuffer[i - 4] = tempReceiveBuffer[i];
   }
