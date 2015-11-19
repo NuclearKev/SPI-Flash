@@ -182,3 +182,16 @@ tomorrow. I fixed all the errors and the things I did make sense. Lets hope it
 works!
 
 ================================================================================
+
+11/19/15:
+
+I started testing my stuff from last night. After fighting with the SDK for 45
+minutes, IT WORKED! I read the status register!
+
+After this exciting feat, I needed to see what else I could do. However, I never
+wrote the readData part in the ethernet program; so I did just that. I wrote the
+code and tried it out and it worked! YAY!
+
+I then tested out my erasing, and that worked as well. This is going quiet well.
+
+================================================================================
