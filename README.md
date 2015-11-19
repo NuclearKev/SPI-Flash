@@ -28,7 +28,7 @@ CPOL=0 & CPHA=0 or CPOL=1 & CPHA=1. The data is send in on the raising edge of
 the clock and data is outputted on the falling edge. The information sent to the
 device should follow this format: {command, addressByte1, addressByte2, AddressByte3,
 data0, data1, ... , dataN}. Where "command" is the command to be ran, addressByte1,
-2 and 3 are the start address in which you will be writing, reading, or erasing
+2 and 3 is the start address in which you will be writing, reading, or erasing
 (explained more later), and "data" is the data to be written. Note that some
 commands don't use the addresses or data.
 
@@ -52,11 +52,33 @@ The WEL bit must be set before execution of every PROGRAM, ERASE, and WRITE
 command.
 
 #### Read Status Register
+This command's code is 0x05. It does not need any addresses, dummies, or data
+bytes. The status register may be read at any time, even while a PROGRAM, ERASE,
+or WRITE STATUS REGISTER (not explained in here) cycle is in progress.
 
 #### Read Data Bytes
+This command's code is 0x03. It requires 3 bytes of start address, no dummies, and
+1 to infinity bytes of data. The first byte addressed can be at any location.
+The address is automatically incremented to the next higher address after each
+byte of data is shifted out. Therefore, the entire memory can be read with a
+single read data bytes command. When the highest address is reached, the address
+counter rolls over to 0x000000, allowing the read sequence to be continued
+indefinitely.
 
 #### Page Program
+This command's code is 0x02. It requires 3 bytes of start address, no dummies, and
+1 to 256 bytes of data. You can only program 1 page or 256 bytes at a time. Before
+you program the device you must run the Write Enable command. If the eight least
+significant address bits are not all zero, all transmitted data that 
+goes beyond the end of the current page are programmed from the start address of the
+same page; that is, from the address whose eight least significant bits are all zero.
 
 #### Sector Erase
+This command's code is 0xD8. It requires 3 bytes of start address, no dummies, and
+no data bytes. This command will erase all data in a sector. The address can be
+anywhere in the sector and it will still erase that sector. 
 
 #### Bulk Erase
+This command's code is 0xC7. It does not need any addresses, dummies, or data
+bytes. This wipes the entire device. Note that this command is NOT used in this
+project as of now. However, it might be someday.
