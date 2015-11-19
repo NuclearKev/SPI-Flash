@@ -96,10 +96,12 @@ uint8_t *readData(XGpio *SSptr, XSpiPs *SPIptr, uint32_t startAddress, uint32_t 
   SendBuffer[1] = startAddress >> 16; //grabs most significant byte
   SendBuffer[2] = startAddress >> 8;  //grabs middle byte
   SendBuffer[3] = startAddress;       //grabs least significant byte
+  
   XGpio_DiscreteWrite(SSptr, 1, 0);
   XSpiPs_PolledTransfer(SPIptr, SendBuffer, tempReceiveBuffer, j);
   XGpio_DiscreteWrite(SSptr, 1, 1);
 
+  /* The top 4 elements in tempReceiveBuffer are always zeros, thus, I remove them */
   uint32_t i;
   for(i = 4; i < j; i++){
     ReceiveBuffer[i - 4] = tempReceiveBuffer[i];
