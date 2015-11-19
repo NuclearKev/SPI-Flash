@@ -12,8 +12,13 @@ the following:
 * Read Sector/Page
 * Erase Sector/Page
 * Write Page
+To demonstrate the functionality of this project, I will be sending some data
+using Ethernet to the ZYBO and have it be stored on the flash. C# will generate
+said data (either a sine wave or some random data). Once the data is written, I
+will send the read command to the ZYBO and have it return the written data
+back to C#. 
 
 ## PMOD SF
 The PMOD SF is the first revision of Digilent's Serial Flash PMOD series. It
-contains a Micron M25P16 16Mbit Serial Flash device. This device uses the SPI
+contains a Numonyx M25P16 16Mbit Serial Flash device. This device uses the SPI
 protocol for communication.
