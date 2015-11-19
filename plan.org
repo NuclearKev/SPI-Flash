@@ -18,5 +18,5 @@
 
 ** TODO Write C# Program [0/3] <2015-12-04 Fri>
    + [ ] Add the appropriate items to the C# Ethernet program
-   + [ ] Calculate some data to send
-   + [ ] Graph what you get back 
+   + [ ] Generate some data to send
+   + [ ] Graph what I get back 
