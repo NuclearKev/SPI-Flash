@@ -188,6 +188,15 @@ works!
 I started testing my stuff from last night. After fighting with the SDK for 45
 minutes, IT WORKED! I read the status register!
 
+How to get the Ethernet program to work:
+
+    - Go into the Board Support Package Settings and check the "lwip141" box.
+      This enables all the TCP/Ethernet crap.
+    - Then, right click on your project and go to the C/C++ Build Settings.
+      Select Software Platform under ARM gcc linker. If you don't see the line
+      "-Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group" add it. This should
+      fix a lot of the errors in your project.
+
 After this exciting feat, I needed to see what else I could do. However, I never
 wrote the readData part in the ethernet program; so I did just that. I wrote the
 code and tried it out and it worked! YAY!
@@ -195,3 +204,15 @@ code and tried it out and it worked! YAY!
 I then tested out my erasing, and that worked as well. This is going quiet well.
 
 ================================================================================
+
+11/20/15:
+
+I began fighting with writing to the flash through Ethernet. This wasn't a
+completely terrible, but it sucked. The main issue here was that I couldn't get
+my writeData array to have the correct amount of elements. Since I was trying to
+have the amount of data you write/read determined by C#, the writeData array can
+vary in size depending on the amount you want. Since C doesn't support variables
+as the number of elements (i.e. writeData[n], where 'n' is a variable), I needed
+to use the malloc function to allocate memory for the array writeData.
+
+After this hustle and bustle, it worked! I'm ready for my next oral presentation. 
