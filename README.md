@@ -67,11 +67,12 @@ indefinitely.
 
 #### Page Program
 This command's code is 0x02. It requires 3 bytes of start address, no dummies, and
-1 to 256 bytes of data. You can only program 1 page or 256 bytes at a time. Before
-you program the device you must run the Write Enable command. If the eight least
-significant address bits are not all zero, all transmitted data that 
-goes beyond the end of the current page are programmed from the start address of the
-same page; that is, from the address whose eight least significant bits are all zero.
+1 to 256 bytes of data. This command writes 1's to 0's. You can only program 1 page
+or 256 bytes at a time. Before you program the device you must run the Write Enable 
+command. If the eight least significant address bits are not all zero, all 
+transmitted data that goes beyond the end of the current page are programmed from 
+the start address of the same page; that is, from the address whose eight least 
+significant bits are all zero.
 
 #### Sector Erase
 This command's code is 0xD8. It requires 3 bytes of start address, no dummies, and
