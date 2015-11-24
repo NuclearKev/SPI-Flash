@@ -216,3 +216,41 @@ as the number of elements (i.e. writeData[n], where 'n' is a variable), I needed
 to use the malloc function to allocate memory for the array writeData.
 
 After this hustle and bustle, it worked! I'm ready for my next oral presentation. 
+
+================================================================================
+
+11/23/15:
+
+Since I have the SPI flash library made and the Ethernet program working, all I
+have left to do is the C# program. All I'll be doing is making a fancy C# Forms
+App that contains a listbox with the commands (Read Status Reg, Erase Sector,
+Read Data Bytes, and Page Program), an execute buttons, textboxes for inputting
+the number of bytes you'd like to read/write and the addresses you'd like to
+read/write, and a chart for graphing the data that you read. Of course, it will
+contain the code for communication through Ethernet and for the generation of
+random data.
+
+--------------------------------------------------------------------------------
+
+At the end of the day, I have all the forms app created minus:
+   -The chart
+   -The generation of data to write
+
+I desided to change the way I did things in the Ethernet program though. Instead,
+of having 4 bytes of address data, in which the first byte was always zero, I
+decided that it would be nicer if I just sent 3 bytes of address data. This is
+done by shifting the address data like I do in the readData and pageProgram
+functions in the spiflash library.
+
+I had to fight with that for a little bit, but after I fixed that it all worked
+well.
+
+................................................................................
+
+It should also be noted that since I only send *bytes* of data to the ZYBO, the
+number of bytes you read/write can only be 255 MAX. This is because the array in
+which the data is send in is of type "Byte" (int8_t). I might change it so that
+it'll split the number of bytes into 2 array elements so that you can get more
+data read/written. However, I might not. I dunno.
+
+================================================================================
